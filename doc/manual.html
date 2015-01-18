@@ -1,0 +1,337 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>echbot User Guide</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+</head>
+
+<body>
+<h1>echbot User Guide</h1>
+<hr size="1">
+<h2>Pickup module commands</h2>
+<table width="100%" border="1">
+  <tr> 
+    <td width="35%"><strong>Command</strong></td>
+    <td width="66%"><strong>Purpose</strong></td>
+  </tr>
+  <tr> 
+    <td> <p><tt><strong>!add</strong> [gameid[,gameid,...]]</tt><br>
+        (or anything starting with <tt>!add</tt>)</p></td>
+    <td><p>Adds the user to a game in the topic.<br>
+        If there is more than one game running and a game id is not given, channel 
+        admins may decide whether the user should be added to all games or given 
+        an error.</p></td>
+  </tr>
+  <tr> 
+    <td><tt><strong>!remove</strong> [gameid[,gameid,...]]</tt><br>
+      (or anything starting with <tt>!remove</tt>)</td>
+    <td>Removes a user from the games given<br>
+      If no gameid is given, then you will be removed from all games in topic.</td>
+  </tr>
+  <tr> 
+    <td><tt><strong>!who</strong> [gameid[,gameid,...]]</tt></td>
+    <td><p>Lists the people signed up for the given game(s).<br>
+        If there is more than one game running, all will be listed.</p></td>
+  </tr>
+  <tr> 
+    <td><tt><strong>!ip</strong> [gameid] &lt;newips&gt;</tt><br>
+      (or anything starting with <tt>!ip</tt>)<br> <font color="#990000" size="-1">Restricted 
+      command (<tt>limit,ip</tt>) - defaults to all</font> </td>
+    <td>Sets the IP to be used for the given game.<br>
+      If no gameid is given and there is only one game in topic, the IP for that 
+      will be set.</td>
+  </tr>
+  <tr> 
+    <td><tt><strong>!deleteip</strong> [gameid[,gameid,...]]</tt><br>
+      (or anything starting with <tt>!deleteip</tt>)</td>
+    <td>Clears the IP for the the given game(s).<br>
+      If no gameid is given and there is only one game in topic, its IP is cleared.</td>
+  </tr>
+  <tr> 
+    <td><tt><strong>!lastgame</strong></tt></td>
+    <td>Tells the user when the last game was started in the channel.</td>
+  </tr>
+  <tr> 
+    <td><p><tt><strong>!promote<br>
+        </strong></tt><font color="#990000" size="-1">Restricted command (<tt>limit,promote</tt>) 
+        - defaults to all</font></p></td>
+    <td>Sends a notice to the channel asking people to <tt>!add</tt> up!</td>
+  </tr>
+  <tr> 
+    <td><p><strong><tt>!reset<br>
+        </tt></strong><font color="#990000" size="-1">Restricted command (<tt>limit,reset</tt>) 
+        - defaults to admins,opped</font></p></td>
+    <td><p>Removes everyone signed up in the topic</p></td>
+  </tr>
+  <tr> 
+    <td><strong><tt>!pickups</tt></strong><tt> [gameid[,gameid,...]]</tt><strong><tt><br>
+      </tt></strong><font color="#990000" size="-1">Restricted command (<tt>limit,gamecontrol</tt>) 
+      - defaults to admins</font></td>
+    <td><p>Sets the games available for adding to in topic.<br>
+        To remove all topic pickup games, use only <tt>!pickups</tt>.<br>
+        To set the number of players for each game, add &quot;<tt>:howmany</tt>&quot; 
+        to the end of each gameid. For example, to set your channel up with a 
+        game called duel with 2 players, and a game called ctf with 10 players 
+        you'd use:</p>
+      <p align="center"> <strong><tt>!pickups duel:2,ctf:10</tt></strong></p></td>
+  </tr>
+  <tr>
+    <td><strong><tt>!update</tt></strong></td>
+    <td>Any changes made to <tt>pickup,addpolicy</tt> will take effect.</td>
+  </tr>
+</table>
+<hr>
+<h2>Gamelookup module commands</h2>
+<table width="100%" border="1">
+  <tr> 
+    <td><strong>Command</strong></td>
+    <td><strong>Purpose</strong></td>
+  </tr>
+  <tr> 
+    <td width="35%"><p><strong><tt>!q3</tt></strong><tt> &lt;ip&gt;</tt><strong><tt><br>
+        !wolf</tt></strong><tt> &lt;ip&gt;</tt><strong><tt><br>
+        !et</tt></strong><tt> &lt;ip&gt;</tt></p></td>
+    <td>Sends a Quake3-style &quot;<tt>getstatus</tt>&quot; command to the server 
+      and displays the server status.</td>
+  </tr>
+  <tr> 
+    <td><p><strong><tt>!hl</tt></strong><tt> &lt;ip&gt;</tt><strong><tt><br>
+        !cs</tt></strong><tt> &lt;ip&gt;</tt></p></td>
+    <td>Sends a set of HalfLife queries to the server and displays the server 
+      status.</td>
+  </tr>
+</table>
+<hr>
+<h2>Bans module commands</h2>
+<table width="100%" border="1">
+  <tr> 
+    <td><strong>Command</strong></td>
+    <td><strong>Purpose</strong></td>
+  </tr>
+  <tr> 
+    <td width="37%"><tt><strong>!ban</strong> [channel] &lt;nickname&gt; [duration] 
+      &lt;reason&gt;</tt><br> <font color="#990000" size="-1">Restricted command 
+      (<tt>limit,ban</tt>) - defaults to admins,opped</font></td>
+    <td width="63%"><p>Sets a ban on the given nickname. If the user is online, 
+        a ban on their hostmask will be set and they will be kicked from the channel.<br>
+        In Quakenet channels with Q, the bot will ban the Q username if it has 
+        been given +m with Q.<br>
+        The <tt>channel</tt> parameter is only needed if <tt>!ban</tt> is being 
+        done by private messaging the bot.</p></td>
+  </tr>
+  <tr> 
+    <td><strong><tt>!banlist</tt></strong><tt> [channel]</tt><br> <font color="#990000" size="-1">Restricted 
+      command (<tt>limit,ban</tt>) - defaults to admins,opped</font></td>
+    <td>Private messages the user with the current banlist for the channel</td>
+  </tr>
+  <tr> 
+    <td><tt><strong>!unban</strong> &lt;nickname&gt;</tt><br> <font color="#990000" size="-1">Restricted 
+      command (<tt>limit,ban</tt>) - defaults to admins,opped</font></td>
+    <td>Removes the ban on the given nickname.</td>
+  </tr>
+</table>
+<hr>
+<h2>Auth module commands</h2>
+<table width="100%" border="1">
+  <tr> 
+    <td><strong>Command</strong></td>
+    <td><strong>Purpose</strong></td>
+  </tr>
+  <tr> 
+    <td width="16%"><tt><strong>!auth</strong></tt></td>
+    <td width="84%"><p>Identifies you to the bot. On QuakeNet your Q username 
+        is looked up.</p></td>
+  </tr>
+  <tr> 
+    <td><strong><tt>!whoami</tt></strong></td>
+    <td>Instructs the bot to tell you who you're authed as.</td>
+  </tr>
+</table>
+<hr>
+<h2>Admin module commands</h2>
+<p align="left">The administration commands are slightly more complicated than 
+  a list of single commands. Most administrative tasks involve using the <tt>!set</tt> 
+  command. This associates a some text with a name. For example...</p>
+<blockquote>
+  <p align="left"> <tt>!set limit,ban admins,opped,voiced</tt></p>
+</blockquote>
+<p align="left"> ...would associate the text &quot;<tt>admins,opped,voiced</tt>&quot; 
+  with the (variable) name &quot;<tt>limit,ban</tt>&quot;. Now the bot knows to 
+  allow all admins, ops, and voiced people access to the <tt>!ban</tt> command.</p>
+<p align="left">Other variables you can set, along with their defaults (with <font color="#990000"><em><strong>C</strong></em></font> 
+  in place of the colour character, and <font color="#990000"><strong><em>B</em></strong></font> 
+  in place of the bold character) are listed below.</p>
+<table width="100%" border="1">
+  <tr> 
+    <td width="24%"><strong>Variable name</strong></td>
+    <td width="30%"><strong>Default value</strong></td>
+    <td width="46%"><strong>Explanation</strong></td>
+  </tr>
+  <tr> 
+    <td>pickup,format</td>
+    <td>&quot;<tt><font color="#990000"><em><strong>C</strong></em></font>4Next 
+      Game: $games$${ <font color="#990000"><em><strong>B</strong></em></font>|| 
+      }motd$</tt>&quot;</td>
+    <td><p>What the topic looks like when pickup is enabled.</p></td>
+  </tr>
+  <tr> 
+    <td>pickup,format,games</td>
+    <td>&quot;<tt><font color="#990000"><em><strong>C</strong></em></font>06$players$${ 
+      <font color="#990000"><em><strong>C</strong></em></font>4@ }ip$</tt>&quot;</td>
+    <td>How each game that appears in the pickup topic is formatted.</td>
+  </tr>
+  <tr> 
+    <td>pickup,format,games,sep</td>
+    <td>&quot;<tt><font color="#990000"><em><strong>C</strong></em></font>12 ][ 
+      </tt>&quot;</td>
+    <td>What separates each game in the topic.</td>
+  </tr>
+  <tr> 
+    <td>pickup,format,games,players</td>
+    <td>&quot;<tt>$num$:$nick$</tt>&quot;</td>
+    <td>How each player is displayed.</td>
+  </tr>
+  <tr> 
+    <td>pickup,format,games,players,sep</td>
+    <td>&quot;<tt>/</tt>&quot;</td>
+    <td>What separates a player from the next one.</td>
+  </tr>
+  <tr> 
+    <td>pickup,who_msg</td>
+    <td>&quot;<tt><font color="#990000"><em><strong>C</strong></em></font>10[<font color="#990000"><em><strong>B</strong></em></font>$id$<font color="#990000"><em><strong>B</strong></em></font>]<font color="#990000"><em><strong>C</strong></em></font>6 
+      $players_compact$</tt>&quot;</td>
+    <td>The message sent to clients as a reply to <tt>!who</tt>.</td>
+  </tr>
+  <tr> 
+    <td>pickup,who_msg,sep</td>
+    <td>&quot;<tt><font color="#990000"><em><strong>C</strong></em></font>4][ 
+      </tt>&quot;</td>
+    <td>What separates multiple <tt>!who</tt> replies.</td>
+  </tr>
+  <tr> 
+    <td>pickup,who_msg,players_compact</td>
+    <td>&quot;<tt>$nick$</tt>&quot;</td>
+    <td>How each player is displayed in the <tt>!who</tt> reply.</td>
+  </tr>
+  <tr> 
+    <td>pickup,who_msg,players_compact,sep</td>
+    <td>&quot;<tt>/</tt>&quot;</td>
+    <td>What separates each player in the <tt>!who</tt> reply.</td>
+  </tr>
+  <tr> 
+    <td>pickup,servercheck</td>
+    <td>&quot;<tt>off</tt>&quot;</td>
+    <td>When set to <tt><strong>q3</strong></tt> or <tt><strong>hl</strong></tt>, 
+      a pickup will not be allowed to start unless the bot has checked the server, 
+      and found there to be enough spaces for all players.<br>
+      When set to <strong><tt>off</tt></strong>, a pickup will be started without 
+      any server checks.</td>
+  </tr>
+    <tr>
+    <td>pickup,randomcaptains</td>
+    <td>&quot;<tt>off</tt>&quot;</td>
+    <td>When set to <tt><strong>on</strong></tt>, the bot will randomly select
+      two captains from the players who signed up.<br>
+      When set to <strong><tt>off</tt></strong>, no captains will be selected.</td>
+  </tr>
+  <tr> 
+    <td>pickup,addpolicy</td>
+    <td>&quot;<tt>0</tt>&quot;</td>
+    <td><p>0 - <tt>!add</tt> adds to no servers and generates an error if there 
+        are multiple games in topic.<br>
+        1 - <tt>!add</tt> will add the user to all games in topic.<br>
+        2 - <tt>!add</tt> adds to all games, you cannot add/remove from specific 
+        games.</p>
+      </td>
+  </tr>
+  <tr>
+    <td>bans,defaultlength</td>
+    <td>&quot;<tt>86400</tt>&quot;</td>
+    <td>The default ban time... in seconds! 86400 is one day.</td>
+  </tr>
+</table>
+<p>(There are many more variables still to be listed - most notably the ones for 
+  changing the outputs of <tt>!q3</tt>-style commands)</p>
+<p>Other commands that may be useful:</p>
+<table width="100%" border="1">
+  <tr> 
+    <td width="34%"><strong>Command</strong></td>
+    <td width="66%"><strong>Purpose</strong></td>
+  </tr>
+  <tr> 
+    <td><strong>!help</strong></td>
+    <td>Shows a handy link to www.echbot.com :-)</td>
+  </tr>
+  <tr> 
+    <td><strong>!topic</strong></td>
+    <td>Shows how to make mirc repeat your topic.</td>
+  </tr>
+  <tr> 
+    <td><tt><strong>!set</strong> &lt;variable&gt;</tt><br> <font color="#990000" size="-1">Admins 
+      only.</font></td>
+    <td>Show the value of the given variable.</td>
+  </tr>
+  <tr> 
+    <td><tt><strong>!set</strong> &lt;variable&gt; &lt;value&gt;</tt><br> <font color="#990000" size="-1">Admins 
+      only.</font></td>
+    <td>Set the given variable.</td>
+  </tr>
+  <tr> 
+    <td><tt><strong>!unset</strong> &lt;variable&gt;</tt><br> <font color="#990000" size="-1">Admins 
+      only.</font></td>
+    <td>Set the given variable back to its default.</td>
+  </tr>
+  <tr> 
+    <td><tt><strong>!alias</strong></tt></td>
+    <td>Show the list of aliases. Aliases are used to make looking up regularly 
+      used servers easier. For instance, you could alias your main server as <tt>server1</tt> 
+      with &quot;<tt>!alias server1 123.123.123.123:2345 pw: myserver</tt>&quot; 
+      and then <tt>!ips server1</tt>, <tt>!q3 server1</tt> etc can be used.</td>
+  </tr>
+  <tr> 
+    <td><tt><strong>!alias</strong> &lt;aliasname&gt;</tt> </td>
+    <td>Show the IP defined for the given aliasname.</td>
+  </tr>
+  <tr> 
+    <td><tt><strong>!alias</strong> &lt;aliasname&gt; &lt;ip&gt;</tt><br> <font color="#990000" size="-1">Restricted 
+      command (<tt>limit,alias</tt>) - defaults to admins,opped</font></td>
+    <td>Set the given aliasname to <tt>ip</tt>.</td>
+  </tr>
+  <tr>
+    <td><tt><strong>!unalias</strong> &lt;aliasname&gt;</tt><br>
+      <font color="#990000" size="-1">Restricted command (<tt>limit,alias</tt>) 
+      - defaults to admins,opped</font></td>
+    <td>Removes the given alias.</td>
+  </tr>
+</table>
+<h3 align="left">Global/network admin commands</h3>
+<p align="left">These commands are detailed here for the benefit of myself and 
+  any others who are running bots for me or themselves. Most users will not have 
+  access to these commands.</p>
+<p align="left"><em>Global admin ONLY:</em></p>
+<blockquote> 
+  <p align="left"><tt>!addmodule, !removemodule, !reloadmodules<br>
+    !listclones, !killclone, !startclone<br>
+    !setadmins, !clearadmins, !network, !removenetwork</tt></p>
+</blockquote>
+<p align="left"><em>Global or network admin:</em></p>
+<blockquote> 
+  <p align="left"><tt>!join, !part, !channels</tt></p>
+</blockquote>
+<p>To set the administrators for a channel, you must set the <tt>admins</tt> variable. 
+  Be extremely careful who you set as a channel admin, as they can add or remove 
+  admin privileges from any of the other admins. They cannot however remove admin 
+  privileges on a channel from network or global admins. For example, to set two 
+  users with the QuakeNet auth names of freddy and george as administrators on 
+  your channel, you'd do:</p>
+<blockquote> 
+  <p><tt>!set admins quakenet_freddy,quakenet_george</tt></p>
+</blockquote>
+<p>&nbsp;</p>
+<hr>
+<p align="left">If you have any questions, ideas, bug reports, or anything else 
+  then please <a href="http://www.lamity.org/~chris/email.cgi">email me</a>.</p>
+<p align="center"><font size="-2">This page was last updated by Chris Pearson 
+  (aka echinus) on 12 August, 2003.</font></p>
+</body>
+</html>

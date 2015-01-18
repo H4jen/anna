@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="echbot">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/build/echbot.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

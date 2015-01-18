@@ -1,0 +1,19 @@
+<component name="libraryTable">
+  <library name="modules">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/build/modules/nickometer.jar!/" />
+      <root url="jar://$PROJECT_DIR$/build/modules/admin.jar!/" />
+      <root url="jar://$PROJECT_DIR$/build/modules/info.jar!/" />
+      <root url="jar://$PROJECT_DIR$/build/modules/qauth.jar!/" />
+      <root url="jar://$PROJECT_DIR$/build/modules/connect.jar!/" />
+      <root url="jar://$PROJECT_DIR$/build/modules/db.jar!/" />
+      <root url="jar://$PROJECT_DIR$/build/modules/channels.jar!/" />
+      <root url="jar://$PROJECT_DIR$/build/modules/pickup.jar!/" />
+      <root url="jar://$PROJECT_DIR$/build/modules/auth.jar!/" />
+      <root url="jar://$PROJECT_DIR$/build/modules/bans.jar!/" />
+      <root url="jar://$PROJECT_DIR$/build/modules/gamelookup.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

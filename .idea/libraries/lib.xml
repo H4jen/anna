@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="lib">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/ant-contrib/lib/ivy-1.3.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/ant-contrib/lib/bcel-5.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/ant-contrib/lib/commons-httpclient-3.0.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/ant-contrib/lib/commons-logging-1.0.4.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

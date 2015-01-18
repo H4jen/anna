@@ -1,0 +1,90 @@
+/*
+ * echbot - an open-source IRC bot
+ * Copyright (C) 2003  Christopher Pearson
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ *
+ * To contact the author, Chris Pearson, email chris@echbot.com
+ */
+package com.echbot.modules.qauth;
+
+import com.echbot.UserModule;
+import com.echbot.UserModuleInterface;
+import com.echbot.messages.in.ChatMessageIn;
+import com.echbot.messages.out.ChatMessageOut;
+import com.echbot.modules.auth.AuthModule;
+import org.apache.log4j.Logger;
+
+import java.util.Properties;
+import java.io.IOException;
+import java.io.InputStream;
+
+/**
+ * @author Chris Pearson
+ * @version $Id: QauthModule.java,v 1.4 2003/09/24 21:51:56 chris Exp $
+ */
+public class QauthModule extends UserModule
+{
+    private static final Logger log = Logger.getLogger(QauthModule.class);
+    private final String QAUTH_FILENAME = "qauth.properties";
+
+    public QauthModule(UserModuleInterface parent) {
+        super(parent);
+        setDefault("limit,reauth", "admins,opped");
+        if ("quakenet".equals(parent.getNetwork())) {
+            register(ChatMessageIn.class);
+        }
+    }
+
+    public void initialise(Object state) {
+        log.debug("Parent network is " + parent.getNetwork());
+        if ("quakenet".equals(parent.getNetwork())) {
+            authWithQ();
+        }
+    }
+
+    public void received(ChatMessageIn message) {
+        AuthModule auth;
+        try {
+            auth = (AuthModule)getModule("auth");
+        } catch (NoSuchModuleException e) {
+            log.warn("Requires auth module", e);
+            return;
+        }
+        if (message.isCommand() &&
+                "!reauth".equals(message.getCommand()) &&
+                auth.permittedTo(message.getFromWithHost(), "limit,reauth", message.getTo())) {
+            authWithQ();
+        }
+    }
+
+    private void authWithQ() {
+        log.debug(parent.getName() + " about to auth with Q");
+        Properties properties = new Properties();
+        try {
+            InputStream in = Thread.currentThread().getContextClassLoader().getResourceAsStream(QAUTH_FILENAME);
+            if (in == null) {
+                log.warn("Couldn't find " + QAUTH_FILENAME);
+            } else {
+                properties.load(in);
+                if (properties.containsKey(parent.getName())) {
+                    send(new ChatMessageOut("Q@Cserve.quakenet.org", "auth " + properties.get(parent.getName()), true));
+                }
+            }
+        } catch (IOException e) {
+            log.warn("Unable to load quakenet auths", e);
+        }
+    }
+}

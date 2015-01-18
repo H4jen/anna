@@ -1,0 +1,13 @@
+#Automatically generated echbot.cfg
+#Wed Jan 14 10:34:19 CET 2015
+bot1,nickname=ra3bot
+bot1,channels=\#qlpickup.dev
+user,hajen=????????
+user,QLhajen=????????
+servers,quakenet=se.quakenet.org
+modules=admin,auth,bans,channels,connect,gamelookup,pickup,qauth
+bot1,network=quakenet
+
+#Everything below are variables
+#Wed Jan 14 10:34:19 CET 2015
+vars,quakenet,\#qlpickup.dev,pickup,active=ca\:4

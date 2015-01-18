@@ -1,0 +1,81 @@
+<?xml version='1.0'?>
+<project default="dist">
+    <property file="ant.properties"/>
+
+    <path id="compile">
+        <fileset dir="." includes="lib/*.jar"/>
+    </path>
+
+    <target name="clean">
+        <delete includeemptydirs="true">
+            <fileset dir=".">
+                <include name="build/**"/>
+                <exclude name="build"/>
+            </fileset>
+        </delete>
+    </target>
+
+    <target name="mkdirs">
+        <mkdir dir="build"/>
+        <mkdir dir="build/modules"/>
+    </target>
+
+    <target name="compile" depends="mkdirs">
+        <javac srcdir="src" destdir="build" classpathref="compile"/>
+    </target>
+
+    <target name="jar-modules" depends="compile">
+        <taskdef resource="net/sf/antcontrib/antcontrib.properties" classpath="lib/ant-contrib.jar"/>
+
+        <foreach target="-jar-module" param="moduledir">
+            <path>
+                <dirset dir="src">
+                    <include name="com/echbot/modules/*"/>
+                </dirset>
+            </path>
+        </foreach>
+    </target>
+
+    <target name="-jar-module">
+        <basename property="module" file="${moduledir}"/>
+        <jar destfile="build/modules/${module}.jar"
+            basedir="build" includes="com/echbot/modules/${module}/**"/>
+        <delete dir="build/com/echbot/modules/${module}"/>
+    </target>
+
+    <target name="dist" depends="clean, jar-modules">
+        <unjar src="lib/log4j.jar" dest="build"/>
+        <unjar src="lib/pg73jdbc3.jar" dest="build"/>
+        <jar jarfile="build/echbot.jar" compress="true">
+            <fileset dir="build">
+                <include name="**/*.class"/>
+            </fileset>
+            <fileset dir=".">
+                <include name="lib/log4j.properties"/>
+            </fileset>
+            <manifest>
+                <attribute name="Main-Class" value="com.echbot.Echbot"/>
+                <attribute name="Class-Path" value="."/>
+            </manifest>
+        </jar>
+        <delete includeemptydirs="true">
+            <fileset dir=".">
+                <include name="build/**"/>
+                <exclude name="build"/>
+                <exclude name="build/echbot.jar"/>
+                <exclude name="build/modules/**"/>
+            </fileset>
+        </delete>
+
+        <echo file="build/run.bat">@echo off
+java -jar echbot.jar</echo>
+
+        <echo file="build/run" message="java -jar echbot.jar"/>
+        <chmod file="build/run" perm="755"/>
+        
+        <echo file="build/echobot.cfg" message="java -jar echbot.jar"/>
+        <chmod file="build/run" perm="755"/>
+        
+        <copy file="echbot.bak" tofile="build/echbot.cfg"/>
+    </target>
+</project>

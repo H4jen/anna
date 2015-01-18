@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_echbot" default="compile.module.echbot">
+  <dirname property="module.echbot.basedir" file="${ant.file.module_echbot}"/>
+  
+  <property name="module.jdk.home.echbot" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.echbot" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.echbot" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.echbot" value="-encoding UTF-8 -source 1.6 ${compiler.args}"/>
+  
+  <property name="echbot.output.dir" value="${module.echbot.basedir}/out/production/echbot"/>
+  <property name="echbot.testoutput.dir" value="${module.echbot.basedir}/out/test/echbot"/>
+  
+  <path id="echbot.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="echbot.module.production.classpath">
+    <path refid="${module.jdk.classpath.echbot}"/>
+    <path refid="library.lib1.classpath"/>
+    <path refid="library.echbot.classpath"/>
+  </path>
+  
+  <path id="echbot.runtime.production.module.classpath">
+    <pathelement location="${echbot.output.dir}"/>
+    <path refid="library.lib1.classpath"/>
+    <path refid="library.echbot.classpath"/>
+  </path>
+  
+  <path id="echbot.module.classpath">
+    <path refid="${module.jdk.classpath.echbot}"/>
+    <pathelement location="${echbot.output.dir}"/>
+    <path refid="library.lib1.classpath"/>
+    <path refid="library.echbot.classpath"/>
+  </path>
+  
+  <path id="echbot.runtime.module.classpath">
+    <pathelement location="${echbot.testoutput.dir}"/>
+    <pathelement location="${echbot.output.dir}"/>
+    <path refid="library.lib1.classpath"/>
+    <path refid="library.echbot.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.echbot">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.echbot">
+    <patternset refid="excluded.from.module.echbot"/>
+  </patternset>
+  
+  <path id="echbot.module.sourcepath">
+    <dirset dir="${module.echbot.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.echbot" depends="compile.module.echbot.production,compile.module.echbot.tests" description="Compile module echbot"/>
+  
+  <target name="compile.module.echbot.production" depends="register.custom.compilers" description="Compile module echbot; production classes">
+    <mkdir dir="${echbot.output.dir}"/>
+    <javac2 destdir="${echbot.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.echbot}/javac">
+      <compilerarg line="${compiler.args.echbot}"/>
+      <bootclasspath refid="echbot.module.bootclasspath"/>
+      <classpath refid="echbot.module.production.classpath"/>
+      <src refid="echbot.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.echbot"/>
+    </javac2>
+    
+    <copy todir="${echbot.output.dir}">
+      <fileset dir="${module.echbot.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.echbot.tests" depends="register.custom.compilers,compile.module.echbot.production" description="compile module echbot; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.echbot" description="cleanup module">
+    <delete dir="${echbot.output.dir}"/>
+    <delete dir="${echbot.testoutput.dir}"/>
+  </target>
+</project>
